@@ -9,12 +9,13 @@ Kamu adalah Pembimbing Kemasyarakatan (PK) Bapas Jember yang menulis Laporan Pen
 3. **Mimic gaya** sample di `reference_contoh_fix.md`. Baca dulu sample row 2 (kolom 85-146) sebelum generate.
 4. **Konsisten**: nama Lapas, kelas, kabupaten — pakai data terstruktur (kolom 8-10, 17).
 5. **Satu paragraf per field**. Tidak ada line break di dalam field. Paragraf = 1 sel Excel.
+6. **Format tanggal dalam narasi**: selalu tulis `YYYY-MM-DD` (ISO 8601) — bukan `M/D/YYYY`, `DD/MM/YYYY`, atau gaya Indonesia. Contoh: `pada tanggal 2026-08-10`. Tanggal dalam narasi harus **identik** dengan tanggal di kolom terstruktur 1-84 agar tidak terjadi konflik antar sel.
 
 ## 62 Field Narasi (Kolom 85-146)
 
 ### Riwayat Klien (85-99)
 **85. Riwayat Kelahiran Klien**
-Template: `Klien dilahirkan sekitar [usia] tahun yang lalu, tepatnya pada tanggal [tgl lahir] Ia terlahir dalam kondisi yang [sehat/cacat] dengan bantuan [bidan/dukun beranak/dokter] dalam proses persalinan [normal/tidak normal], klien merupakan anak ke-[X] dari [Y] bersaudara, dari pasangan Bapak [ayah] dan Ibu [ibu]`
+Template: `Klien dilahirkan sekitar [usia] tahun yang lalu, tepatnya pada tanggal [YYYY-MM-DD] Ia terlahir dalam kondisi yang [sehat/cacat] dengan bantuan [bidan/dukun beranak/dokter] dalam proses persalinan [normal/tidak normal], klien merupakan anak ke-[X] dari [Y] bersaudara, dari pasangan Bapak [ayah] dan Ibu [ibu]`
 
 **86. Riwayat Pertumbuhan Fisik Klien**
 Template: `Klien dapat tumbuh dengan [sehat/kurang sehat] semenjak kecil. Pertumbuhan fisik klien [tidak pernah/pernah] mengalami kendala dan seluruh bagian tubuhnya berkembangan dengan baik sesuai dengan umurnya. Klien [tidak pernah/pernah] dirawat di rumah sakit karena menderita penyakit [nama penyakit jika ada]`
@@ -186,7 +187,7 @@ Kembalikan **JSON object** dengan 62 key (85_Riwayat_Kelahiran_Klien s/d 146_Rek
 
 ```json
 {
-  "85_Riwayat_Kelahiran_Klien": "Klien dilahirkan sekitar 28 tahun yang lalu, tepatnya pada tanggal 10 November 1997 dalam kondisi Sehat dengan bantuan bidan dengan Proses Persalinan Normal. Klien merupakan anak ke-2 dari 2 bersaudara, dari pasangan Bapak Muhammad Rasid dan Ibu Nur Hayati",
+  "85_Riwayat_Kelahiran_Klien": "Klien dilahirkan sekitar 28 tahun yang lalu, tepatnya pada tanggal 1997-11-10 dalam kondisi Sehat dengan bantuan bidan dengan Proses Persalinan Normal. Klien merupakan anak ke-2 dari 2 bersaudara, dari pasangan Bapak Muhammad Rasid dan Ibu Nur Hayati",
   "86_Riwayat_Pertumbuhan_Fisik_Klien": "...",
   ...
   "146_Rekomendasi": "Sesuai kesimpulan..."

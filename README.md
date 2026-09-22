@@ -8,7 +8,7 @@ Automate **Laporan Penelitian Kemasyarakatan (Litmas)** generation using AI (Her
 AutoLitmas/
 ├── Contoh Fix.ods                          # Template output reference (146 kolom, sample row 2)
 ├── LitmasV5.xlsm                           # Engine Litmas asli (rumus, RRI, Kriminogenik, Telraam)
-├── Cuti_Bersyarat_...docx                  # Contoh Litmas jadi (narasi lengkap)
+├── Contoh_Litmas_Cuti_Bersyarat.docx       # Contoh Litmas jadi (narasi lengkap, nama generik)
 ├── reference_contoh_fix.json               # Extract headers + sample row dari Contoh Fix.ods
 ├── reference_contoh_fix.md                 # Human-readable reference
 ├── skills/
@@ -22,6 +22,8 @@ AutoLitmas/
 │       │   └── reference_contoh_fix.md     # Reference human-readable
 │       └── scripts/
 │           └── write_excel.py              # Script tulis JSON → .xlsx (openpyxl)
+├── data_klien/                             # Input per-klien (PDF/docx) — di-gitignore
+├── output/                                  # Hasil skill: Master Litmas.xlsx, JSON — di-gitignore
 └── README.md                               # File ini
 ```
 
@@ -55,17 +57,20 @@ Kalau mau test tanpa Hermes, bisa jalankan manual:
 1. Extract data klien ke JSON 146 field (pakai LLM apapun dengan prompt dari `templates/`)
 2. Tulis Excel:
    ```bash
-   python3 skills/litmas-generator/scripts/write_excel.py \
+   python skills/litmas-generator/scripts/write_excel.py \
      --json output_klien.json \
-     --out "Litmas_Mohammad_Zaenal_Abidin.xlsx"
+     --master "output/Master Litmas.xlsx"   # append ke master (default); duplikat nama otomatis di-skip
    ```
 
 ## Output
-File `.xlsx` dengan:
+**Default: append ke `output/Master Litmas.xlsx`** (`--master`). Tiap run menambah 1 row; duplikat nama klien otomatis di-skip, file dibuat otomatis kalau belum ada. `--out` untuk file standalone per-klien.
+
+Setiap file `.xlsx` berisi:
 - **Row 1**: 146 header (sesuai `Contoh Fix.ods`)
 - **Row 2+**: data klien (1 row per klien)
 - Kolom 1-84: data terstruktur (identitas, meta litmas)
 - Kolom 85-146: 62 paragraf narasi Litmas
+- **Format tanggal**: ISO 8601 `YYYY-MM-DD` (di semua field tanggal, terstruktur maupun narasi)
 
 ## Field Schema
 Lihat `skills/litmas-generator/litmas_schema.json` untuk definisi lengkap 146 field (tipe, default, enum, deskripsi).
@@ -73,7 +78,7 @@ Lihat `skills/litmas-generator/litmas_schema.json` untuk definisi lengkap 146 fi
 ## Catatan
 - **Data sensitif**: Litmas = data pribadi narapidana. Jalankan Hermes di lingkungan yang sesuai compliance.
 - **Review wajib**: AI bisa salah baca transkrip STT. Selalu review output sebelum submit.
-- **Format tanggal**: YYYY-MM-DD (ISO 8601) (sesuai Excel).
+- **Format tanggal**: `YYYY-MM-DD` (ISO 8601). Semua field tanggal (terstruktur dan narasi) memakai ISO 8601. `write_excel.py` otomatis meng-normalisasi `M/D/YYYY` / `D-M-YYYY` ke ISO 8601 untuk field tanggal.
 - **PK default**: Gema Eka Adi Pamungkas (NIP 19940817 202012 1 001), Bapas Kelas II Jember.
 
 ## Lisensi

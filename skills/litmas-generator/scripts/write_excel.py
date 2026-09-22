@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
 
 try:
@@ -26,6 +27,73 @@ except ImportError:
     print("ERROR: openpyxl tidak terinstall.", file=sys.stderr)
     print("Install dengan: pip install openpyxl", file=sys.stderr)
     sys.exit(1)
+
+
+# Fields whose values are dates (kolom 1-84). Value MUST be ISO 8601 YYYY-MM-DD.
+DATE_FIELDS = {
+    "4_Tanggal_TPP", "6_Tanggal_Surat_Pengantar_Laporan",
+    "11_Tanggal_Permintaan_Surat", "15_Tanggal_Surat_Tugas",
+    "19_Tanggal_Lahir", "20_Tanggal_Putusan",
+    "23_Pertama_Ditahan", "24_Sepertiga", "25_Setengah", "26_Dua_Pertiga",
+    "27_Ekspirasi", "43_Ayah_Tanggal_Lahir", "54_Ibu_Tanggal_Lahir",
+    "65_Istri_Tanggal_Lahir", "76_Penjamin_Tanggal_Lahir",
+}
+# Numeric prefix form (e.g. "19") also accepted as date.
+DATE_PREFIXES = {k.split("_")[0] for k in DATE_FIELDS}
+
+# M/D/YYYY or D/MM/YYYY -> parse as US Excel locale (M/D/YYYY).
+_RE_M_D_YYYY = re.compile(r"^\s*(\d{1,2})/(\d{1,2})/(\d{2,4})\s*$")
+# D-M-YYYY / D.MM.YYYY (Indonesian style) -> parse as D-M-YYYY.
+_RE_D_M_YYYY = re.compile(r"^\s*(\d{1,2})[.\-](\d{1,2})[.\-](\d{2,4})\s*$")
+# Already ISO 8601.
+_RE_ISO = re.compile(r"^\s*(\d{4})-(\d{1,2})-(\d{1,2})\s*$")
+
+
+def normalize_date(v):
+    """Normalize a date field value to ISO 8601 YYYY-MM-DD.
+    Accepts: 'YYYY-MM-DD', 'M/D/YYYY', 'D-M-YYYY' (US Excel or Indonesian locale).
+    For slash dates, tries M/D/YYYY (US Excel) first; if that yields an invalid
+    date (e.g. '28/02/2026'), falls back to D/M/YYYY (Indonesian).
+    Returns (iso_string, warning_or_None). Empty -> ('', None).
+    """
+    if v is None:
+        return "", None
+    s = str(v).strip()
+    if not s:
+        return "", None
+
+    m = _RE_ISO.match(s)
+    if m:
+        y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        try:
+            return datetime(y, mo, d).strftime("%Y-%m-%d"), None
+        except ValueError as e:
+            return s, f"WARN: ISO date {s!r} invalid ({e}); kept as-is"
+
+    m = _RE_M_D_YYYY.match(s)
+    if m:
+        a, b, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        # Try M/D/YYYY (US Excel) first.
+        try:
+            return datetime(y, a, b).strftime("%Y-%m-%d"), None
+        except ValueError:
+            # Ambiguous or invalid as M/D; try D/M/YYYY (Indonesian).
+            try:
+                return datetime(y, b, a).strftime("%Y-%m-%d"), \
+                    f"WARN: date {s!r} interpreted as D/M/YYYY (Indonesian), not M/D"
+            except ValueError as e:
+                return s, f"WARN: date {s!r} invalid as M/D/YYYY or D/M/YYYY ({e}); kept as-is"
+
+    m = _RE_D_M_YYYY.match(s)
+    if m:
+        d, mo, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        try:
+            return datetime(y, mo, d).strftime("%Y-%m-%d"), None
+        except ValueError as e:
+            return s, f"WARN: date {s!r} invalid as D-M-YYYY ({e}); kept as-is"
+
+    # Unknown format: keep as-is but warn.
+    return s, f"WARN: date field value {s!r} not recognized as a date; kept as-is"
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -134,22 +202,33 @@ def normalize_value(v):
 
 
 def build_row(data):
-    """Build ordered list of 146 values from JSON data dict (key = field name)."""
+    """Build ordered list of 146 values from JSON data dict (key = field name).
+    Date fields (DATE_FIELDS) are auto-normalized to ISO 8601 YYYY-MM-DD.
+    """
     row = []
     missing = []
+    date_warnings = []
     for field in FIELD_ORDER:
-        if field in data:
-            row.append(normalize_value(data[field]))
-        else:
+        raw = data.get(field)
+        if raw is None:
             # try numeric prefix match (e.g. "1" -> "1_Nama_Klien")
             num = field.split("_")[0]
-            if num in data:
-                row.append(normalize_value(data[num]))
-            else:
-                row.append("")
-                missing.append(field)
+            raw = data.get(num)
+        if raw is None:
+            row.append("")
+            missing.append(field)
+            continue
+        if field in DATE_FIELDS:
+            value, w = normalize_date(raw)
+            if w:
+                date_warnings.append(w)
+            row.append(value)
+        else:
+            row.append(normalize_value(raw))
     if missing:
         print(f"WARN: {len(missing)} field kosong: {missing[:5]}...", file=sys.stderr)
+    for w in date_warnings:
+        print(w, file=sys.stderr)
     return row
 
 
@@ -157,7 +236,7 @@ def style_header(ws, n_cols=146):
     """Apply header styling: bold, green bg, border, wrap, center."""
     header_font = Font(name="Arial", size=12, bold=True, color="000000")
     header_fill = PatternFill(start_color="E2F0D9", end_color="E2F0D9", fill_type="solid")
-    header_align = Alignment(horizontal="center", vertical="middle", wrap_text=True)
+    header_align = Alignment(horizontal="center", vertical="center", wrap_text=True)
     thin = Side(border_style="thin", color="000000")
     header_border = Border(left=thin, right=thin, bottom=thin)
 
@@ -242,6 +321,53 @@ def write_append(data, target_path):
     return target_path
 
 
+def write_master(data, master_path):
+    """Append ke master (buat file baru kalau belum ada). Duplikat nama klien
+    di-skip supaya run berulang tidak menambah row kembar.
+    """
+    # Dedup key = nama klien yang ditulis di kolom 1 master (FIELD_ORDER[0]).
+    # JSON memakai "1_Nama_Klien"; kalau kosong, fallback ke nama lengkap.
+    name = str(data.get("1_Nama_Klien", "")).strip()
+    if not name:
+        name = str(data.get("1_Nama_Lengkap_Lapas", "")).strip()
+    if not os.path.exists(master_path):
+        print(f"NOTE: master tidak ada, membuat baru: {master_path}", file=sys.stderr)
+        # buat file baru (header + 1 row) via write_new, lalu lanjut
+        write_new(data, master_path)
+        print(f"OK: master dibuat {master_path} (146 kolom, 1 row data) [nama: {name or '?'}]")
+        return master_path
+
+    wb = load_workbook(master_path)
+    ws = wb.active
+
+    # cek duplikat: nama klien (kolom 1) sudah ada?
+    existing = set()
+    for r in range(2, ws.max_row + 1):
+        v = ws.cell(row=r, column=1).value
+        if isinstance(v, str) and v.strip():
+            existing.add(v.strip())
+    if name and name in existing:
+        print(f"SKIP: nama klien sudah ada di master (row duplikat dihindari): {name}", file=sys.stderr)
+        print(f"OK: no-op (sudah ada) {master_path}")
+        return master_path
+
+    # cari row kosong berikutnya
+    next_row = ws.max_row + 1
+    while next_row > 2 and all(
+        (ws.cell(row=next_row - 1, column=c).value in (None, ""))
+        for c in range(1, 147)
+    ):
+        next_row -= 1
+
+    row = build_row(data)
+    for col_idx, value in enumerate(row, start=1):
+        ws.cell(row=next_row, column=col_idx, value=value)
+    style_data_row(ws, next_row)
+    wb.save(master_path)
+    print(f"OK: appended row {next_row} ke master {master_path} [nama: {name or '?'}]")
+    return master_path
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Tulis JSON Litmas (146 field) ke file .xlsx"
@@ -250,19 +376,33 @@ def main():
         "--json", required=True, help="Path file JSON output klien (146 field)"
     )
     parser.add_argument(
-        "--out", required=True, help="Path file .xlsx output (file baru)"
+        "--out",
+        help="Path file .xlsx output (file baru). Wajib kalau --append tidak dipakai.",
     )
     parser.add_argument(
         "--append",
         help="Path file .xlsx target untuk append row baru (opsional)",
         default=None,
     )
+    parser.add_argument(
+        "--master",
+        help="Path file Master Litmas.xlsx: append (atau buat baru kalau belum ada), "
+             "duplikat nama klien di-skip. Ini target default tiap run.",
+        default=None,
+    )
     args = parser.parse_args()
+
+    if args.master is None and args.append is None and args.out is None:
+        parser.error(
+            "butuh salah satu: --master (append ke master, default), --append, atau --out (file baru)"
+        )
 
     with open(args.json, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    if args.append:
+    if args.master:
+        write_master(data, args.master)
+    elif args.append:
         write_append(data, args.append)
     else:
         write_new(data, args.out)

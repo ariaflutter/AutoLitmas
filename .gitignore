@@ -1,0 +1,22 @@
+# ---- Data klien (sumber per-klien: PDF/docx; berisi nama klien) ----
+data_klien/
+
+# ---- Output hasil skill (master + JSON + xlsx per-run) ----
+output/
+*.xlsx.bak
+~$*.xlsx
+*.xlsx.tmp
+
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

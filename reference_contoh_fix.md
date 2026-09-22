@@ -193,7 +193,7 @@ Jember
 
 ### 11. Tanggal Permintaan Surat
 
-11/30/2022
+2022-11-30
 
 ### 12. Nomor Permintaan Surat
 
@@ -209,7 +209,7 @@ W.15.PAS.PAS43-UM 03.07- 11701
 
 ### 15. Tanggal Surat Tugas
 
-12/2/2022
+2022-12-02
 
 ### 16. No. Register Litmas
 
@@ -229,7 +229,7 @@ Jember
 
 ### 20. Tanggal Putusan
 
-3/30/2022
+2022-03-30
 
 ### 21. No. Putusan
 
@@ -241,23 +241,23 @@ Jember
 
 ### 23. Pertama Ditahan
 
-11/27/2021
+2021-11-27
 
 ### 24. ⅓
 
-9/23/2022
+2022-09-23
 
 ### 25. ½
 
-1/26/2023
+2023-01-26
 
 ### 26. ⅔
 
-6/25/2023
+2023-06-25
 
 ### 27. Ekspirasi
 
-4/25/2024
+2024-04-25
 
 ### 28. Usia
 
@@ -321,7 +321,7 @@ Banyuwangi
 
 ### 43. Ayah Tanggal Lahir
 
-7/1/1960
+1960-07-01
 
 ### 44. Ayah Agama
 
@@ -365,7 +365,7 @@ Lumajang
 
 ### 54. Ibu Tanggal Lahir
 
-7/1/1958
+1958-07-01
 
 ### 55. Ibu Agama
 
@@ -409,7 +409,7 @@ Jember
 
 ### 65. Istri Tanggal Lahir
 
-12/15/1975
+1975-12-15
 
 ### 66. Istri Agama
 
@@ -453,7 +453,7 @@ Jember
 
 ### 76. Penjamin Tanggal Lahir
 
-12/15/1975
+1975-12-15
 
 ### 77. Penjamin Agama
 
@@ -489,7 +489,7 @@ Istri
 
 ### 85. Riwayat Kelahiran Klien
 
-Klien dilahirkan sekitar 49 tahun yang lalu, tepatnya pada tanggal 27 Agustus 1973 Ia terlahir dalam kondisi yang sehat dengan bantuan dukun beranak dalam proses persalinan normal, klien merupakan anak ke 3 dari 7 bersaudara dari pasangan bapak Moh. Sanusi dan ibu Tumyati
+Klien dilahirkan sekitar 49 tahun yang lalu, tepatnya pada tanggal 1973-08-27 Ia terlahir dalam kondisi yang sehat dengan bantuan dukun beranak dalam proses persalinan normal, klien merupakan anak ke 3 dari 7 bersaudara dari pasangan bapak Moh. Sanusi dan ibu Tumyati
 
 ### 86. Riwayat Pertumbuhan Fisik Klien
 
@@ -537,7 +537,7 @@ Klien termasuk pekerja yang giat Klien bekerja terakhir kali sebagai Sopir Denga
 
 ### 97. Riwayat Pelanggaran Hukum
 
-Ini merupakan Tindak Pidana Klien Pertama Kali, Klien terjerat Perkara Penggelapan Pasal 372 KUHPdan dijatuhi pidana 2 Tahun 6 Bulan Pidana Penjara berdasarkan Putusan Pengadilan Nomor 31/Pid.B/2022/PN Jmr Tanggal 14 Desember 2022
+Ini merupakan Tindak Pidana Klien Pertama Kali, Klien terjerat Perkara Penggelapan Pasal 372 KUHPdan dijatuhi pidana 2 Tahun 6 Bulan Pidana Penjara berdasarkan Putusan Pengadilan Nomor 31/Pid.B/2022/PN Jmr Tanggal 2022-12-14
 
 ### 98. Riwayat Mengkonsumsi Rokok, Napza, dan Alkohol
 
@@ -733,5 +733,5 @@ Dari hasil wawancara Pembimbing Kemasyarakatan dengan Klien, Petugas Lembaga Pem
 
 ### 146. Rekomendasi
 
-Sesuai kesimpulan yang telah disebutkan di atas dan berdasarkan dari hasil sidang Tim Pengamat Pemasyarakatan Balai Pemasyarakatan Kelas II Jember pada Hari Rabu Pada Tanggal 14 Desember 2022 dengan nomor TPP 212/TPP/XII/2022 Kami selaku Pembimbing Kemasyarakatan Menyarankan hal sebagai berikut :1. Merekomendasikan dilaksanakan Pembebasan Bersyarat dengan pertimbangan bahwa telah terjadi perubahan sikap dan perilaku klien di dalam Lembaga Pemasyarakatan, penjamin layak dan Memenuhi kriteria yang dibutuhkan, Masyarakat, Pemerintah setempat tidak ada masalah dalam menerima klien di dalam lingkungan mereka  2. Selama Menunggu Proses Pembebasan Bersyarat agar ditingkatkan proses pembinaan kepribadian klien, hal ini ditujukan agar klien dapat terus mendapatkan bekal di dalam masyarakat untuk mengetahui mana yang benar dan mana yang salah agar tidak melakukan tindak pidana kembali di dalam masyarakat.
+Sesuai kesimpulan yang telah disebutkan di atas dan berdasarkan dari hasil sidang Tim Pengamat Pemasyarakatan Balai Pemasyarakatan Kelas II Jember pada Hari Rabu Pada Tanggal 2022-12-14 dengan nomor TPP 212/TPP/XII/2022 Kami selaku Pembimbing Kemasyarakatan Menyarankan hal sebagai berikut :1. Merekomendasikan dilaksanakan Pembebasan Bersyarat dengan pertimbangan bahwa telah terjadi perubahan sikap dan perilaku klien di dalam Lembaga Pemasyarakatan, penjamin layak dan Memenuhi kriteria yang dibutuhkan, Masyarakat, Pemerintah setempat tidak ada masalah dalam menerima klien di dalam lingkungan mereka  2. Selama Menunggu Proses Pembebasan Bersyarat agar ditingkatkan proses pembinaan kepribadian klien, hal ini ditujukan agar klien dapat terus mendapatkan bekal di dalam masyarakat untuk mengetahui mana yang benar dan mana yang salah agar tidak melakukan tindak pidana kembali di dalam masyarakat.
 

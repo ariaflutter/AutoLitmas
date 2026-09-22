@@ -4,155 +4,665 @@
   "description": "146 field sesuai struktur Contoh Fix.ods. Kolom 1-84 = data terstruktur, 85-146 = narasi paragraf.",
   "type": "object",
   "properties": {
-    "1_Nama_Klien": { "type": "string", "description": "Nama lengkap narapidana beserta bin/als", "example": "Samsul Muarip bin Moh Sanusi" },
-    "2_Status_Litmas": { "type": "string", "description": "Status pengerjaan", "enum": ["Sudah Terselesaikan","Sudah Terkirim","Sudah Terdownload","Sudah di Data","Pending Belum Terkerjakan"], "default": "Sudah Terselesaikan" },
-    "3_Jenis_Litmas": { "type": "string", "description": "Jenis program reintegrasi", "enum": ["Cuti Bersyarat","Pembebasan Bersyarat","Asimilasi di Rumah","Pembimbingan","Permintaan Pemindahan Lembaga Pemasyarakatan"], "example": "Pembebasan Bersyarat" },
-    "4_Tanggal_TPP": { "type": "string", "format": "date", "description": "Tanggal sidang Tim Pengamat Pemasyarakatan (YYYY-MM-DD ISO 8601)", "example": "2022-12-14" },
-    "5_Nomor_Sidang_TPP": { "type": "string", "description": "Nomor sidang TPP", "example": "212/TPP/XII/2022" },
-    "6_Tanggal_Surat_Pengantar_Laporan": { "type": "string", "format": "date", "description": "Tanggal surat pengantar laporan Litmas (YYYY-MM-DD (ISO 8601))" },
-    "7_Perihal_Surat_Pengantar_Laporan_Litmas": { "type": "string", "description": "Perihal surat pengantar", "example": "Laporan Hasil Penelitian Kemasyarakatan Untuk Program Pembebasan Bersyarat atas nama ..." },
-    "8_Peminta_Nama_Instansi": { "type": "string", "description": "Nama instansi peminta (biasanya Lembaga Pemasyarakatan)", "default": "Lembaga Pemasyarakatan" },
-    "9_Peminta_Kelas_Instansi": { "type": "string", "description": "Kelas instansi peminta", "enum": ["Kelas I","Kelas IA","Kelas IB","Kelas IIA","Kelas IIB","Kelas II","Kelas III"], "example": "Kelas IIA" },
-    "10_Peminta_Kota_Instansi": { "type": "string", "description": "Kota instansi peminta", "default": "Jember" },
-    "11_Tanggal_Permintaan_Surat": { "type": "string", "format": "date", "description": "Tanggal surat permintaan dari Lapas (YYYY-MM-DD (ISO 8601))" },
-    "12_Nomor_Permintaan_Surat": { "type": "string", "description": "Nomor surat permintaan dari Lapas" },
-    "13_Peminta_Perihal_Surat": { "type": "string", "description": "Perihal surat permintaan dari Lapas" },
-    "14_No_Surat_Tugas": { "type": "string", "description": "Nomor surat tugas PK" },
-    "15_Tanggal_Surat_Tugas": { "type": "string", "format": "date", "description": "Tanggal surat tugas PK (YYYY-MM-DD (ISO 8601))" },
-    "16_No_Register_Litmas": { "type": "string", "description": "Nomor register Litmas Bapas" },
-    "17_No_Register_Lapas": { "type": "string", "description": "Nomor register Lapas" },
-    "18_Tempat_Lahir": { "type": "string", "description": "Tempat lahir klien" },
-    "19_Tanggal_Lahir": { "type": "string", "format": "date", "description": "Tanggal lahir klien (YYYY-MM-DD (ISO 8601))" },
-    "20_Tanggal_Putusan": { "type": "string", "format": "date", "description": "Tanggal putusan pengadilan (YYYY-MM-DD (ISO 8601))" },
-    "21_No_Putusan": { "type": "string", "description": "Nomor putusan pengadilan" },
-    "22_Pidana": { "type": "string", "description": "Lama pidana + denda/subsider", "example": "2 Tahun 6 Bulan Pidana Penjara" },
-    "23_Pertama_Ditahan": { "type": "string", "format": "date", "description": "Tanggal pertama ditahan (YYYY-MM-DD (ISO 8601))" },
-    "24_Sepertiga": { "type": "string", "format": "date", "description": "Tanggal 1/3 masa pidana (YYYY-MM-DD (ISO 8601))" },
-    "25_Setengah": { "type": "string", "format": "date", "description": "Tanggal 1/2 masa pidana (YYYY-MM-DD (ISO 8601))" },
-    "26_Dua_Pertiga": { "type": "string", "format": "date", "description": "Tanggal 2/3 masa pidana (YYYY-MM-DD (ISO 8601))" },
-    "27_Ekspirasi": { "type": "string", "format": "date", "description": "Tanggal ekspirasi masa pidana (YYYY-MM-DD (ISO 8601))" },
-    "28_Usia": { "type": "integer", "description": "Usia klien saat Litmas dibuat" },
-    "29_Perkara": { "type": "string", "description": "Jenis tindak pidana", "example": "Penggelapan" },
-    "30_Pasal": { "type": "string", "description": "Pasal yang didakwakan", "example": "Pasal 372 KUHP" },
-    "31_Alamat": { "type": "string", "description": "Alamat lengkap klien (dusun/RT/RW/desa/kec/kab)" },
-    "32_Jenis_Kelamin": { "type": "string", "enum": ["Laki-Laki","Perempuan"] },
-    "33_Agama": { "type": "string", "enum": ["Islam","Kristen","Katolik","Hindu","Buddha","Konghucu"] },
-    "34_Suku": { "type": "string", "description": "Suku klien", "example": "Madura" },
-    "35_Bangsa": { "type": "string", "default": "Indonesia" },
-    "36_Warga_Negara": { "type": "string", "default": "WNI" },
-    "37_Pendidikan_Terakhir": { "type": "string", "enum": ["Tidak Sekolah","Tidak Tamat SD","Tamat SD","SD Tamat","SMP atau Sederajat","SLTP","SMA atau Sederajat","SLUA","D1 atau Sederajat","D2 atau Sederajat","D3 atau Sederajat","S1 atau Sederajat","S2","S3"] },
-    "38_Pekerjaan": { "type": "string", "description": "Pekerjaan klien" },
-    "39_Status_Perkawinan": { "type": "string", "enum": ["Belum Kawin","Menikah","Cerai Hidup","Cerai Mati","Janda","Duda"] },
-    "40_Ciri_Khusus": { "type": "string", "default": "Tidak Ada" },
-    "41_Ayah_Nama": { "type": "string" },
-    "42_Ayah_Tempat_Lahir": { "type": "string" },
-    "43_Ayah_Tanggal_Lahir": { "type": "string", "format": "date" },
-    "44_Ayah_Agama": { "type": "string" },
-    "45_Ayah_Suku": { "type": "string" },
-    "46_Ayah_Bangsa": { "type": "string" },
-    "47_Ayah_Warga_Negara": { "type": "string" },
-    "48_Ayah_Pendidikan_Terakhir": { "type": "string" },
-    "49_Ayah_Pekerjaan": { "type": "string" },
-    "50_Ayah_Alamat": { "type": "string" },
-    "51_Ayah_Hubungan": { "type": "string", "default": "Ayah Kandung" },
-    "52_Ibu_Nama": { "type": "string" },
-    "53_Ibu_Tempat_Lahir": { "type": "string" },
-    "54_Ibu_Tanggal_Lahir": { "type": "string", "format": "date" },
-    "55_Ibu_Agama": { "type": "string" },
-    "56_Ibu_Suku": { "type": "string" },
-    "57_Ibu_Bangsa": { "type": "string" },
-    "58_Ibu_Warga_Negara": { "type": "string" },
-    "59_Ibu_Pendidikan_Terakhir": { "type": "string" },
-    "60_Ibu_Pekerjaan": { "type": "string" },
-    "61_Ibu_Alamat": { "type": "string" },
-    "62_Ibu_Hubungan": { "type": "string", "default": "Ibu Kandung" },
-    "63_Istri_Nama": { "type": "string", "description": "Nama pasangan (kosong jika belum kawin)" },
-    "64_Istri_Tempat_Lahir": { "type": "string" },
-    "65_Istri_Tanggal_Lahir": { "type": "string", "format": "date" },
-    "66_Istri_Agama": { "type": "string" },
-    "67_Istri_Suku": { "type": "string" },
-    "68_Istri_Bangsa": { "type": "string" },
-    "69_Istri_Warga_Negara": { "type": "string" },
-    "70_Istri_Pendidikan_Terakhir": { "type": "string" },
-    "71_Istri_Pekerjaan": { "type": "string" },
-    "72_Istri_Alamat": { "type": "string" },
-    "73_Istri_Hubungan": { "type": "string", "description": "Istri/Suami/Pasangan" },
-    "74_Penjamin_Nama": { "type": "string" },
-    "75_Penjamin_Tempat_Lahir": { "type": "string" },
-    "76_Penjamin_Tanggal_Lahir": { "type": "string", "format": "date" },
-    "77_Penjamin_Agama": { "type": "string" },
-    "78_Penjamin_Suku": { "type": "string" },
-    "79_Penjamin_Bangsa": { "type": "string" },
-    "80_Penjamin_Warga_Negara": { "type": "string" },
-    "81_Penjamin_Pendidikan_Terakhir": { "type": "string" },
-    "82_Penjamin_Pekerjaan": { "type": "string" },
-    "83_Penjamin_Alamat": { "type": "string" },
-    "84_Penjamin_Hubungan": { "type": "string", "description": "Hubungan penjamin dengan klien", "example": "Ayah Kandung/Istri/Kakak Kandung" },
-
-    "85_Riwayat_Kelahiran_Klien": { "type": "string", "section": "narasi", "description": "Narasi riwayat kelahiran: tanggal, kondisi, penolong persalinan, proses persalinan, anak ke-berapa, dari pasangan siapa" },
-    "86_Riwayat_Pertumbuhan_Fisik_Klien": { "type": "string", "section": "narasi", "description": "Narasi pertumbuhan fisik: kesehatan, penyakit, perkembangan tubuh" },
-    "87_Riwayat_Perkembangan_Psiko_Sosial_Klien": { "type": "string", "section": "narasi", "description": "Narasi perkembangan psiko-sosial semenjak kecil" },
-    "88_Pendidikan_dalam_Keluarga": { "type": "string", "section": "narasi", "description": "Narasi pendidikan dalam keluarga: nasihat, agama, nilai" },
-    "89_Pendidikan_Formal": { "type": "string", "section": "narasi", "description": "Narasi pendidikan formal: SD/SMP/SMA, perilaku belajar" },
-    "90_Pendidikan_Non_Formal": { "type": "string", "section": "narasi", "description": "Narasi pendidikan non-formal: TPQ/kursus/bimbel atau tidak ada" },
-    "91_Bakat_dan_Potensi_Klien": { "type": "string", "section": "narasi", "description": "Narasi bakat/potensi klien atau tidak ada" },
-    "92_Relasi_Sosial_dengan_Orang_tua_dan_Keluarga": { "type": "string", "section": "narasi" },
-    "93_Ketaatan_Klien_dalam_Beragama": { "type": "string", "section": "narasi", "description": "Ketaatan beragama sebelum masuk Lapas" },
-    "94_Kebiasaan_Klien_yang_Baik": { "type": "string", "section": "narasi" },
-    "95_Kebiasaan_Klien_yang_Buruk": { "type": "string", "section": "narasi" },
-    "96_Sikap_Klien_dalam_Bekerja": { "type": "string", "section": "narasi", "description": "Pekerjaan + pendapatan + cukup/tidak" },
-    "97_Riwayat_Pelanggaran_Hukum": { "type": "string", "section": "narasi", "description": "Tindak pidana pertama kali / residivis + nomor putusan" },
-    "98_Riwayat_Mengkonsumsi_Rokok_Napza_dan_Alkohol": { "type": "string", "section": "narasi" },
-    "99_Riwayat_Perkawinan_Klien": { "type": "string", "section": "narasi" },
-    "100_Riwayat_Perkawinan_Orang_tua": { "type": "string", "section": "narasi" },
-    "101_Relasi_Sosial_dalam_keluarga": { "type": "string", "section": "narasi" },
-    "102_Pekerjaan_dan_Keadaan_ekonomi": { "type": "string", "section": "narasi", "description": "Pekerjaan & penghasilan ayah/ibu" },
-    "103_Keadaan_Rumah_dan_Tempat_Tinggal": { "type": "string", "section": "narasi", "description": "Tipe rumah, luas, kamar, lantai, cat, listrik, air, elektronik" },
-    "104_Relasi_Sosial_dengan_Masyarakat": { "type": "string", "section": "narasi" },
-    "105_Kondisi_Sosial_Alam_tempat_Orang_tua": { "type": "string", "section": "narasi", "description": "Pedesaan/perkotaan, alam" },
-    "106_Penggolongan_Profesi_dan_Mata_Pencaharian": { "type": "string", "section": "narasi" },
-    "107_Stratifikasi_Sosial_Ekonomi_masyarakat": { "type": "string", "section": "narasi", "enum": ["rendah","menengah-rendah","menengah","menengah-tinggi","tinggi"] },
-    "108_Tingkat_Pendidikan_Rata_Rata_Masyarakat": { "type": "string", "section": "narasi" },
-    "109_Pola_Hubungan_Interaksi_Sosial_dalam_Masyarakat": { "type": "string", "section": "narasi", "description": "Homogen/heterogen, suku" },
-    "110_Kegiatan_Pendidikan": { "type": "string", "section": "narasi", "description": "Fasilitas pendidikan masyarakat" },
-    "111_Kepedulian_terhadap_Kegiatan_Keagamaan": { "type": "string", "section": "narasi" },
-    "112_Kesadaran_terhadap_Kepatuhan_Nilai_Norma_Hukum_yang_Berlaku": { "type": "string", "section": "narasi" },
-    "113_Riwayat_Perkawinan_Penjamin": { "type": "string", "section": "narasi" },
-    "114_Relasi_Sosial_dalam_keluarga_Penjamin": { "type": "string", "section": "narasi" },
-    "115_Relasi_Sosial_dalam_Masyarakat_Penjamin": { "type": "string", "section": "narasi" },
-    "116_Pekerjaan_dan_Keadaan_ekonomi_Penjamin": { "type": "string", "section": "narasi" },
-    "117_Keadaan_Rumah_dan_Tempat_Tinggal_Penjamin": { "type": "string", "section": "narasi" },
-    "118_Kondisi_Sosial_Alam_tempat_penjamin": { "type": "string", "section": "narasi" },
-    "119_Latar_Belakang_Tindak_Pidana": { "type": "string", "section": "narasi" },
-    "120_Kronologi": { "type": "string", "section": "narasi" },
-    "121_Keadaan_Korban": { "type": "string", "section": "narasi" },
-    "122_Akibat_yang_ditimbulkan_Kepada_Korban": { "type": "string", "section": "narasi" },
-    "123_Akibat_Tindak_Pidana_Terhadap_Klien": { "type": "string", "section": "narasi" },
-    "124_Akibat_Tindak_Pidana_Terhadap_Orang_tua": { "type": "string", "section": "narasi" },
-    "125_Akibat_Tindak_Pidana_Terhadap_Masyarakat": { "type": "string", "section": "narasi" },
-    "126_Sikap_dan_Tanggapan_Klien": { "type": "string", "section": "narasi" },
-    "127_Sikap_dan_Tanggapan_Orang_tua_Keluarga": { "type": "string", "section": "narasi" },
-    "128_Sikap_dan_Tanggapan_Korban": { "type": "string", "section": "narasi" },
-    "129_Sikap_dan_Tanggapan_Masyarakat": { "type": "string", "section": "narasi" },
-    "130_Sikap_dan_Tanggapan_Pemerintah_Setempat": { "type": "string", "section": "narasi" },
-    "131_Evaluasi_Pelaksanaan_Program_Admisi_Orientasi_dan_Observasi": { "type": "string", "section": "narasi" },
-    "132_Program_Pembinaan_Kepribadian": { "type": "string", "section": "narasi" },
-    "133_Program_Pembinaan_Kemandirian": { "type": "string", "section": "narasi" },
-    "134_Relasi_Sosial_selama_di_dalam_Lapas_ke_Sesama_WBP": { "type": "string", "section": "narasi" },
-    "135_Relasi_Sosial_Selama_di_dalam_Lapas_kepada_Petugas": { "type": "string", "section": "narasi" },
-    "136_Relasi_Sosial_selama_di_dalam_Lapas_Kepada_Keluarga": { "type": "string", "section": "narasi" },
-    "137_Relasi_Sosial_di_dalam_Lapas_kepada_Masyarakat_Luar": { "type": "string", "section": "narasi" },
-    "138_Evaluasi_Program_Asimilasi": { "type": "string", "section": "narasi" },
-    "139_Asesmen_RRI_dan_Kriminogenik": { "type": "string", "section": "narasi", "description": "Nilai RRI + kategori + nilai Kriminogenik" },
-    "140_Sikap_Klien_Menjalani_Masa_Pembinaan_dan_Risiko_Pengulangan_Tindak_Pidana": { "type": "string", "section": "narasi" },
-    "141_Perkembangan_dan_Perubahan_Perilaku_Klien_setelah_mengikuti_program_pembinaan": { "type": "string", "section": "narasi" },
-    "142_Penerimaan_dan_kesiapan_masyarakat_pemerintah_dan_korban": { "type": "string", "section": "narasi" },
-    "143_Hasil_Evaluasi_Program_Asimilasi": { "type": "string", "section": "narasi" },
-    "144_Kemungkinan_Memenuhi_Syarat_atau_tidak_untuk_Program_Re_integrasi": { "type": "string", "section": "narasi" },
-    "145_Kesimpulan": { "type": "string", "section": "narasi", "description": "Narasi kesimpulan bernomor 1-6" },
-    "146_Rekomendasi": { "type": "string", "section": "narasi", "description": "Narasi rekomendasi: tanggal sidang TPP + saran bernomor" }
+    "1_Nama_Klien": {
+      "type": "string",
+      "description": "Nama lengkap narapidana beserta bin/als",
+      "example": "Samsul Muarip bin Moh Sanusi"
+    },
+    "2_Status_Litmas": {
+      "type": "string",
+      "description": "Status pengerjaan",
+      "enum": [
+        "Sudah Terselesaikan",
+        "Sudah Terkirim",
+        "Sudah Terdownload",
+        "Sudah di Data",
+        "Pending Belum Terkerjakan"
+      ],
+      "default": "Sudah Terselesaikan"
+    },
+    "3_Jenis_Litmas": {
+      "type": "string",
+      "description": "Jenis program reintegrasi",
+      "enum": [
+        "Cuti Bersyarat",
+        "Pembebasan Bersyarat",
+        "Asimilasi di Rumah",
+        "Pembimbingan",
+        "Permintaan Pemindahan Lembaga Pemasyarakatan"
+      ],
+      "example": "Pembebasan Bersyarat"
+    },
+    "4_Tanggal_TPP": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal sidang Tim Pengamat Pemasyarakatan (YYYY-MM-DD ISO 8601)",
+      "example": "2022-12-14"
+    },
+    "5_Nomor_Sidang_TPP": {
+      "type": "string",
+      "description": "Nomor sidang TPP",
+      "example": "212/TPP/XII/2022"
+    },
+    "6_Tanggal_Surat_Pengantar_Laporan": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal surat pengantar laporan Litmas (YYYY-MM-DD (ISO 8601))"
+    },
+    "7_Perihal_Surat_Pengantar_Laporan_Litmas": {
+      "type": "string",
+      "description": "Perihal surat pengantar",
+      "example": "Laporan Hasil Penelitian Kemasyarakatan Untuk Program Pembebasan Bersyarat atas nama ..."
+    },
+    "8_Peminta_Nama_Instansi": {
+      "type": "string",
+      "description": "Nama instansi peminta (biasanya Lembaga Pemasyarakatan)",
+      "default": "Lembaga Pemasyarakatan"
+    },
+    "9_Peminta_Kelas_Instansi": {
+      "type": "string",
+      "description": "Kelas instansi peminta",
+      "enum": [
+        "Kelas I",
+        "Kelas IA",
+        "Kelas IB",
+        "Kelas IIA",
+        "Kelas IIB",
+        "Kelas II",
+        "Kelas III"
+      ],
+      "example": "Kelas IIA"
+    },
+    "10_Peminta_Kota_Instansi": {
+      "type": "string",
+      "description": "Kota instansi peminta",
+      "default": "Jember"
+    },
+    "11_Tanggal_Permintaan_Surat": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal surat permintaan dari Lapas (YYYY-MM-DD (ISO 8601))"
+    },
+    "12_Nomor_Permintaan_Surat": {
+      "type": "string",
+      "description": "Nomor surat permintaan dari Lapas"
+    },
+    "13_Peminta_Perihal_Surat": {
+      "type": "string",
+      "description": "Perihal surat permintaan dari Lapas"
+    },
+    "14_No_Surat_Tugas": {
+      "type": "string",
+      "description": "Nomor surat tugas PK"
+    },
+    "15_Tanggal_Surat_Tugas": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal surat tugas PK (YYYY-MM-DD (ISO 8601))"
+    },
+    "16_No_Register_Litmas": {
+      "type": "string",
+      "description": "Nomor register Litmas Bapas"
+    },
+    "17_No_Register_Lapas": {
+      "type": "string",
+      "description": "Nomor register Lapas"
+    },
+    "18_Tempat_Lahir": {
+      "type": "string",
+      "description": "Tempat lahir klien"
+    },
+    "19_Tanggal_Lahir": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal lahir klien (YYYY-MM-DD (ISO 8601))"
+    },
+    "20_Tanggal_Putusan": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal putusan pengadilan (YYYY-MM-DD (ISO 8601))"
+    },
+    "21_No_Putusan": {
+      "type": "string",
+      "description": "Nomor putusan pengadilan"
+    },
+    "22_Pidana": {
+      "type": "string",
+      "description": "Lama pidana + denda/subsider",
+      "example": "2 Tahun 6 Bulan Pidana Penjara"
+    },
+    "23_Pertama_Ditahan": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal pertama ditahan (YYYY-MM-DD (ISO 8601))"
+    },
+    "24_Sepertiga": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal 1/3 masa pidana (YYYY-MM-DD (ISO 8601))"
+    },
+    "25_Setengah": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal 1/2 masa pidana (YYYY-MM-DD (ISO 8601))"
+    },
+    "26_Dua_Pertiga": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal 2/3 masa pidana (YYYY-MM-DD (ISO 8601))"
+    },
+    "27_Ekspirasi": {
+      "type": "string",
+      "format": "date",
+      "description": "Tanggal ekspirasi masa pidana (YYYY-MM-DD (ISO 8601))"
+    },
+    "28_Usia": {
+      "type": "integer",
+      "description": "Usia klien saat Litmas dibuat"
+    },
+    "29_Perkara": {
+      "type": "string",
+      "description": "Jenis tindak pidana",
+      "example": "Penggelapan"
+    },
+    "30_Pasal": {
+      "type": "string",
+      "description": "Pasal yang didakwakan",
+      "example": "Pasal 372 KUHP"
+    },
+    "31_Alamat": {
+      "type": "string",
+      "description": "Alamat lengkap klien (dusun/RT/RW/desa/kec/kab)"
+    },
+    "32_Jenis_Kelamin": {
+      "type": "string",
+      "enum": [
+        "Laki-Laki",
+        "Perempuan"
+      ]
+    },
+    "33_Agama": {
+      "type": "string",
+      "enum": [
+        "Islam",
+        "Kristen",
+        "Katolik",
+        "Hindu",
+        "Buddha",
+        "Konghucu"
+      ]
+    },
+    "34_Suku": {
+      "type": "string",
+      "description": "Suku klien",
+      "example": "Madura"
+    },
+    "35_Bangsa": {
+      "type": "string",
+      "default": "Indonesia"
+    },
+    "36_Warga_Negara": {
+      "type": "string",
+      "default": "WNI"
+    },
+    "37_Pendidikan_Terakhir": {
+      "type": "string",
+      "enum": [
+        "Tidak Sekolah",
+        "Tidak Tamat SD",
+        "Tamat SD",
+        "SD Tamat",
+        "SMP atau Sederajat",
+        "SLTP",
+        "SMA atau Sederajat",
+        "SLUA",
+        "D1 atau Sederajat",
+        "D2 atau Sederajat",
+        "D3 atau Sederajat",
+        "S1 atau Sederajat",
+        "S2",
+        "S3"
+      ]
+    },
+    "38_Pekerjaan": {
+      "type": "string",
+      "description": "Pekerjaan klien"
+    },
+    "39_Status_Perkawinan": {
+      "type": "string",
+      "enum": [
+        "Belum Kawin",
+        "Menikah",
+        "Cerai Hidup",
+        "Cerai Mati",
+        "Janda",
+        "Duda"
+      ]
+    },
+    "40_Ciri_Khusus": {
+      "type": "string",
+      "default": "Tidak Ada"
+    },
+    "41_Ayah_Nama": {
+      "type": "string"
+    },
+    "42_Ayah_Tempat_Lahir": {
+      "type": "string"
+    },
+    "43_Ayah_Tanggal_Lahir": {
+      "type": "string",
+      "format": "date"
+    },
+    "44_Ayah_Agama": {
+      "type": "string"
+    },
+    "45_Ayah_Suku": {
+      "type": "string"
+    },
+    "46_Ayah_Bangsa": {
+      "type": "string"
+    },
+    "47_Ayah_Warga_Negara": {
+      "type": "string"
+    },
+    "48_Ayah_Pendidikan_Terakhir": {
+      "type": "string"
+    },
+    "49_Ayah_Pekerjaan": {
+      "type": "string"
+    },
+    "50_Ayah_Alamat": {
+      "type": "string"
+    },
+    "51_Ayah_Hubungan": {
+      "type": "string",
+      "default": "Ayah Kandung"
+    },
+    "52_Ibu_Nama": {
+      "type": "string"
+    },
+    "53_Ibu_Tempat_Lahir": {
+      "type": "string"
+    },
+    "54_Ibu_Tanggal_Lahir": {
+      "type": "string",
+      "format": "date"
+    },
+    "55_Ibu_Agama": {
+      "type": "string"
+    },
+    "56_Ibu_Suku": {
+      "type": "string"
+    },
+    "57_Ibu_Bangsa": {
+      "type": "string"
+    },
+    "58_Ibu_Warga_Negara": {
+      "type": "string"
+    },
+    "59_Ibu_Pendidikan_Terakhir": {
+      "type": "string"
+    },
+    "60_Ibu_Pekerjaan": {
+      "type": "string"
+    },
+    "61_Ibu_Alamat": {
+      "type": "string"
+    },
+    "62_Ibu_Hubungan": {
+      "type": "string",
+      "default": "Ibu Kandung"
+    },
+    "63_Istri_Nama": {
+      "type": "string",
+      "description": "Nama pasangan (kosong jika belum kawin)"
+    },
+    "64_Istri_Tempat_Lahir": {
+      "type": "string"
+    },
+    "65_Istri_Tanggal_Lahir": {
+      "type": "string",
+      "format": "date"
+    },
+    "66_Istri_Agama": {
+      "type": "string"
+    },
+    "67_Istri_Suku": {
+      "type": "string"
+    },
+    "68_Istri_Bangsa": {
+      "type": "string"
+    },
+    "69_Istri_Warga_Negara": {
+      "type": "string"
+    },
+    "70_Istri_Pendidikan_Terakhir": {
+      "type": "string"
+    },
+    "71_Istri_Pekerjaan": {
+      "type": "string"
+    },
+    "72_Istri_Alamat": {
+      "type": "string"
+    },
+    "73_Istri_Hubungan": {
+      "type": "string",
+      "description": "Istri/Suami/Pasangan"
+    },
+    "74_Penjamin_Nama": {
+      "type": "string"
+    },
+    "75_Penjamin_Tempat_Lahir": {
+      "type": "string"
+    },
+    "76_Penjamin_Tanggal_Lahir": {
+      "type": "string",
+      "format": "date"
+    },
+    "77_Penjamin_Agama": {
+      "type": "string"
+    },
+    "78_Penjamin_Suku": {
+      "type": "string"
+    },
+    "79_Penjamin_Bangsa": {
+      "type": "string"
+    },
+    "80_Penjamin_Warga_Negara": {
+      "type": "string"
+    },
+    "81_Penjamin_Pendidikan_Terakhir": {
+      "type": "string"
+    },
+    "82_Penjamin_Pekerjaan": {
+      "type": "string"
+    },
+    "83_Penjamin_Alamat": {
+      "type": "string"
+    },
+    "84_Penjamin_Hubungan": {
+      "type": "string",
+      "description": "Hubungan penjamin dengan klien",
+      "example": "Ayah Kandung/Istri/Kakak Kandung"
+    },
+    "85_Riwayat_Kelahiran_Klien": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi riwayat kelahiran: tanggal, kondisi, penolong persalinan, proses persalinan, anak ke-berapa, dari pasangan siapa"
+    },
+    "86_Riwayat_Pertumbuhan_Fisik_Klien": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi pertumbuhan fisik: kesehatan, penyakit, perkembangan tubuh"
+    },
+    "87_Riwayat_Perkembangan_Psiko_Sosial_Klien": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi perkembangan psiko-sosial semenjak kecil"
+    },
+    "88_Pendidikan_dalam_Keluarga": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi pendidikan dalam keluarga: nasihat, agama, nilai"
+    },
+    "89_Pendidikan_Formal": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi pendidikan formal: SD/SMP/SMA, perilaku belajar"
+    },
+    "90_Pendidikan_Non_Formal": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi pendidikan non-formal: TPQ/kursus/bimbel atau tidak ada"
+    },
+    "91_Bakat_dan_Potensi_Klien": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi bakat/potensi klien atau tidak ada"
+    },
+    "92_Relasi_Sosial_dengan_Orang_tua_dan_Keluarga": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "93_Ketaatan_Klien_dalam_Beragama": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Ketaatan beragama sebelum masuk Lapas"
+    },
+    "94_Kebiasaan_Klien_yang_Baik": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "95_Kebiasaan_Klien_yang_Buruk": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "96_Sikap_Klien_dalam_Bekerja": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Pekerjaan + pendapatan + cukup/tidak"
+    },
+    "97_Riwayat_Pelanggaran_Hukum": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Tindak pidana pertama kali / residivis + nomor putusan"
+    },
+    "98_Riwayat_Mengkonsumsi_Rokok_Napza_dan_Alkohol": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "99_Riwayat_Perkawinan_Klien": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "100_Riwayat_Perkawinan_Orang_tua": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "101_Relasi_Sosial_dalam_keluarga": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "102_Pekerjaan_dan_Keadaan_ekonomi": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Pekerjaan & penghasilan ayah/ibu"
+    },
+    "103_Keadaan_Rumah_dan_Tempat_Tinggal": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Tipe rumah, luas, kamar, lantai, cat, listrik, air, elektronik"
+    },
+    "104_Relasi_Sosial_dengan_Masyarakat": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "105_Kondisi_Sosial_Alam_tempat_Orang_tua": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Pedesaan/perkotaan, alam"
+    },
+    "106_Penggolongan_Profesi_dan_Mata_Pencaharian": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "107_Stratifikasi_Sosial_Ekonomi_masyarakat": {
+      "type": "string",
+      "section": "narasi",
+      "enum": [
+        "rendah",
+        "menengah-rendah",
+        "menengah",
+        "menengah-tinggi",
+        "tinggi"
+      ]
+    },
+    "108_Tingkat_Pendidikan_Rata_Rata_Masyarakat": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "109_Pola_Hubungan_Interaksi_Sosial_dalam_Masyarakat": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Homogen/heterogen, suku"
+    },
+    "110_Kegiatan_Pendidikan": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Fasilitas pendidikan masyarakat"
+    },
+    "111_Kepedulian_terhadap_Kegiatan_Keagamaan": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "112_Kesadaran_terhadap_Kepatuhan_Nilai_Norma_Hukum_yang_Berlaku": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "113_Riwayat_Perkawinan_Penjamin": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "114_Relasi_Sosial_dalam_keluarga_Penjamin": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "115_Relasi_Sosial_dalam_Masyarakat_Penjamin": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "116_Pekerjaan_dan_Keadaan_ekonomi_Penjamin": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "117_Keadaan_Rumah_dan_Tempat_Tinggal_Penjamin": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "118_Kondisi_Sosial_Alam_tempat_penjamin": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "119_Latar_Belakang_Tindak_Pidana": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "120_Kronologi": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "121_Keadaan_Korban": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "122_Akibat_yang_ditimbulkan_Kepada_Korban": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "123_Akibat_Tindak_Pidana_Terhadap_Klien": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "124_Akibat_Tindak_Pidana_Terhadap_Orang_tua": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "125_Akibat_Tindak_Pidana_Terhadap_Masyarakat": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "126_Sikap_dan_Tanggapan_Klien": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "127_Sikap_dan_Tanggapan_Orang_tua_Keluarga": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "128_Sikap_dan_Tanggapan_Korban": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "129_Sikap_dan_Tanggapan_Masyarakat": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "130_Sikap_dan_Tanggapan_Pemerintah_Setempat": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "131_Evaluasi_Pelaksanaan_Program_Admisi_Orientasi_dan_Observasi": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "132_Program_Pembinaan_Kepribadian": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "133_Program_Pembinaan_Kemandirian": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "134_Relasi_Sosial_selama_di_dalam_Lapas_ke_Sesama_WBP": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "135_Relasi_Sosial_Selama_di_dalam_Lapas_kepada_Petugas": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "136_Relasi_Sosial_selama_di_dalam_Lapas_Kepada_Keluarga": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "137_Relasi_Sosial_di_dalam_Lapas_kepada_Masyarakat_Luar": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "138_Evaluasi_Program_Asimilasi": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "139_Asesmen_RRI_dan_Kriminogenik": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Nilai RRI + kategori + nilai Kriminogenik"
+    },
+    "140_Sikap_Klien_Menjalani_Masa_Pembinaan_dan_Risiko_Pengulangan_Tindak_Pidana": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "141_Perkembangan_dan_Perubahan_Perilaku_Klien_setelah_mengikuti_program_pembinaan": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "142_Penerimaan_dan_kesiapan_masyarakat_pemerintah_dan_korban": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "143_Hasil_Evaluasi_Program_Asimilasi": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "144_Kemungkinan_Memenuhi_Syarat_atau_tidak_untuk_Program_Re_integrasi": {
+      "type": "string",
+      "section": "narasi"
+    },
+    "145_Kesimpulan": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi kesimpulan bernomor 1-6"
+    },
+    "146_Rekomendasi": {
+      "type": "string",
+      "section": "narasi",
+      "description": "Narasi rekomendasi: tanggal sidang TPP + saran bernomor"
+    }
   },
-  "required": ["1_Nama_Klien", "3_Jenis_Litmas"],
+  "required": [
+    "1_Nama_Klien",
+    "3_Jenis_Litmas"
+  ],
   "defaults": {
     "2_Status_Litmas": "Sudah Terselesaikan",
     "8_Peminta_Nama_Instansi": "Lembaga Pemasyarakatan",
